@@ -17,13 +17,15 @@ export const IntentPagination = ({
   intents,
   currentPage,
 }: IntentPagination) => {
+  const hasNextPage = !intents.next;
+  const hasPrevPage = !intents.prev;
   return (
     <Pagination className=" sticky bottom-0 bg-white z-50 p-3">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
             href={`?_page=${intents.prev}`}
-            disabled={!intents.prev}
+            disabled={hasPrevPage}
           />
         </PaginationItem>
         {[...Array(intents.last)].map((_e, i) => {
@@ -40,7 +42,7 @@ export const IntentPagination = ({
         <PaginationItem>
           <PaginationNext
             href={`?_page=${intents.next}`}
-            disabled={!intents.next}
+            disabled={hasNextPage}
           />
         </PaginationItem>
       </PaginationContent>
