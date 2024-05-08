@@ -2,35 +2,45 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+## Please note
+- Make sure that no process is running on the port :3000 - next js should be smart enough to start the process on other available port but just to me sure
+- It should run on latest version of NodeJS but I was using v18.17.0
+
+First, make sure mock api is up and running. [Read here how to start the mock server](https://github.com/nmitic/ultimate-intents). 
+
+Second after mock server is running, install dependencies and run the development server:
+
+Run the following commands (npm, yarn should also work but I am using pnpm)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm i
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Implemented features
+I focus on implementing minimum requirements which were noted in a challenge docs. But also wanted to have some fun with it. :)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Pagination
+- Select single intent (click on the item)
+- Select all intents (cmd/ctrl plus A)
+- Select multiple intents (hold cmd/ctrl plus click)
+- Remove selection
+- Selection tracking
 
-## Learn More
+Please note, I have not tested how this works in window env, only mac, but I am confident it should work.
 
-To learn more about Next.js, take a look at the following resources:
+## Why Next JS?
+- Again, trying to move fast with things which are not relevant for the challenge, and having everything setup is very useful in such case. Otherwise, from requirements there is no need for framework such as NextJS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Why Playwright?
+- I wanted to test the app as close to the user as possible. With tools such as RTL we can go only so far. For example, I discovered that css is note available in jest-dom. Which would force me to include it manually or to use css in js.
+- PLaywright supports testing component in isolation inside a headless browser, which is perfect for the case where iterations are more then clicks.
+- Tests are focus only on the feature which were implemented and not tested by any of the tools I am using itself. For example, I was not focusing on testing pagination or data fetching as there is not much going on there. So I wanted to spent this little time I had with test I believe brings the most value.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Why Tailwind
+- In all honesty, speed. I later regret it, as testing React component styled using Tailwind with RTL is very difficult without adding some hacks. I am still having love / hate relationship with it. It has its pros and cons. But for this challenge it served me well, and allowed me to move faster.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Why shadcn?
+- I wanted UI to look decent, and wanted to have as little friction with UI libs as possible, as usually it is not the case with full blown UI libs. Chadcn means I own everything as it is very easy to extend. Which I had to do in order to allow for selections to be possible.
