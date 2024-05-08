@@ -1,5 +1,5 @@
-import { TableRow } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+import { TableRow } from "../../ui/table";
+import { cn } from "../../../lib/utils";
 
 interface SelectableTableRow<T> {
   data: T;
@@ -18,6 +18,7 @@ export const SelectableTableRow = <T,>({
 }: SelectableTableRow<T>) => {
   return (
     <TableRow
+      data-testid="intent"
       onClick={(event) => {
         if (event.ctrlKey || event.metaKey) {
           // Ctrl (or Cmd) key is pressed along with the click

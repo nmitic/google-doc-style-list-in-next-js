@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
   TableHead,
-  TableBody,
   TableCell,
   TableCaption,
 } from "../ui/table";
@@ -15,6 +14,8 @@ import { useState } from "react";
 import { SelectTracker } from "./components/SelectTracker";
 import { SelectableTableBody } from "./components/SelectableTableBody";
 import { SelectableTableRow } from "./components/SelectableTableRow";
+
+import "../../app/globals.css";
 
 export const IntentsTable = ({ intents }: { intents: Intent[] }) => {
   const [selectedIntents, setSelectedIntents] = useState<string[]>([]);

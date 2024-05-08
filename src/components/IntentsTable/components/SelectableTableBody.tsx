@@ -1,4 +1,4 @@
-import { TableBody } from "@/components/ui/table";
+import { TableBody } from "../../ui/table";
 import { useEffect } from "react";
 
 interface SelectableTableBody {
