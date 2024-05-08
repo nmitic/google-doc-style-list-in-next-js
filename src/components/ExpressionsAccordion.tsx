@@ -16,7 +16,10 @@ export const ExpressionsAccordion = ({
     <>
       <Button
         variant="outline"
-        onClick={() => setIsListExpended((prev) => !prev)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsListExpended((prev) => !prev);
+        }}
         className="mb-3"
       >
         {isListExpended ? "Hide all" : "Show all"}
