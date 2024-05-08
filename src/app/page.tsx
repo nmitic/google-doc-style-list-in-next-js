@@ -1,3 +1,4 @@
+import { IntentPagination } from "@/components/IntentPagination";
 import { IntentsTable } from "@/components/IntentsTable";
 import {
   Pagination,
@@ -8,17 +9,7 @@ import {
   PaginationNext,
 } from "@/components/ui/pagination";
 
-import { Intent } from "@/types/intents";
-
-export type IntentResponse = {
-  first: number;
-  prev: number | null;
-  next: number | null;
-  last: number;
-  pages: number;
-  items: number;
-  data: Intent[];
-};
+import { Intent, IntentResponse } from "@/types/intents";
 
 type SearchParams = {
   [key in "_page" | "_per_page"]?: string | undefined;
@@ -38,36 +29,11 @@ export default async function Home({
   const intents: IntentResponse = await response.json();
 
   return (
-    <main>
-      <IntentsTable intents={intents.data} />
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              href={`?_page=${intents.prev}`}
-              disabled={!intents.prev}
-            />
-          </PaginationItem>
-          {[...Array(intents.last)].map((_e, i) => {
-            return (
-              <PaginationItem key={i}>
-                <PaginationLink
-                  href={`?_page=${i + 1}`}
-                  isActive={searchParams?._page === `${i + 1}`}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            );
-          })}
-          <PaginationItem>
-            <PaginationNext
-              href={`?_page=${intents.next}`}
-              disabled={!intents.next}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+    <main className=" max-w-[1200px] m-auto p-3">
+      <section className=" mb-6">
+        <IntentsTable intents={intents.data} />
+      </section>
+      <IntentPagination intents={intents} currentPage={searchParams?._page} />
     </main>
   );
 }

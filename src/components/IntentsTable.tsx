@@ -92,7 +92,7 @@ const SelectTracker = ({
   onRemoveSelection,
 }: SelectTracker) => {
   return (
-    <div>
+    <div className=" sticky top-0 bg-white z-50 p-3">
       <span className=" mr-3">
         <span className=" text-emerald-800 font-medium">{amount}</span> selected
       </span>
@@ -112,6 +112,7 @@ const SelectTracker = ({
 
 export const IntentsTable = ({ intents }: { intents: Intent[] }) => {
   const [selectedIntents, setSelectedIntents] = useState<string[]>([]);
+
   const selectedAmount = selectedIntents.length;
   const hasSelectedIntents = !!selectedAmount;
 
