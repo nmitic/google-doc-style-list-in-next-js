@@ -1,4 +1,4 @@
-import { ExpressionsAccordion } from "@/components/ExpressionsAccordion";
+import { IntentsTable } from "@/components/IntentsTable";
 import {
   Pagination,
   PaginationContent,
@@ -7,14 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
 } from "@/components/ui/pagination";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
+
 import { Intent } from "@/types/intents";
 
 export type IntentResponse = {
@@ -46,32 +39,7 @@ export default async function Home({
 
   return (
     <main>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Expressions</TableHead>
-            <TableHead>Expressions count</TableHead>
-            <TableHead>Reply</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {intents.data.map((intent) => (
-            <TableRow key={intent.id}>
-              <TableCell className="font-medium">{intent.name}</TableCell>
-              <TableCell>{intent.description}</TableCell>
-              <TableCell>
-                <ExpressionsAccordion
-                  expressions={intent.trainingData.expressions}
-                />
-              </TableCell>
-              <TableCell>{intent.trainingData.expressionCount}</TableCell>
-              <TableCell>{intent.reply.text}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <IntentsTable intents={intents.data} />
       <Pagination>
         <PaginationContent>
           <PaginationItem>
