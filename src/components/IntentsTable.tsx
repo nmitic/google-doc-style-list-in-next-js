@@ -9,9 +9,11 @@ import {
   TableHead,
   TableBody,
   TableCell,
+  TableCaption,
 } from "./ui/table";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 interface SelectableTableRow<T> {
   data: T;
@@ -78,52 +80,95 @@ const SelectableTableBody = ({
   return <TableBody>{children}</TableBody>;
 };
 
+interface SelectTracker {
+  amount: number;
+  hasSelected: boolean;
+  onRemoveSelection: () => void;
+}
+
+const SelectTracker = ({
+  amount,
+  hasSelected,
+  onRemoveSelection,
+}: SelectTracker) => {
+  return (
+    <div>
+      <span className=" mr-3">
+        <span className=" text-emerald-800 font-medium">{amount}</span> selected
+      </span>
+      {hasSelected && (
+        <Button
+          variant="destructive"
+          onClick={() => {
+            onRemoveSelection();
+          }}
+        >
+          Remove selections
+        </Button>
+      )}
+    </div>
+  );
+};
+
 export const IntentsTable = ({ intents }: { intents: Intent[] }) => {
   const [selectedIntents, setSelectedIntents] = useState<string[]>([]);
+  const selectedAmount = selectedIntents.length;
+  const hasSelectedIntents = !!selectedAmount;
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Description</TableHead>
-          <TableHead>Expressions</TableHead>
-          <TableHead>Expressions count</TableHead>
-          <TableHead>Reply</TableHead>
-        </TableRow>
-      </TableHeader>
-      <SelectableTableBody
-        onSelectAll={() => {
-          setSelectedIntents(() => intents.map((intent) => intent.id));
-        }}
-      >
-        {intents.map((intent) => {
-          const isSelected = selectedIntents.includes(intent.id);
-          return (
-            <SelectableTableRow
-              key={intent.id}
-              data={intent.id}
-              onSelect={(id) => {
-                setSelectedIntents(() => [id]);
-              }}
-              onSelectMultiple={(id) =>
-                setSelectedIntents((prev) => [...prev, id])
-              }
-              isSelected={isSelected}
-            >
-              <TableCell className="font-medium">{intent.name}</TableCell>
-              <TableCell>{intent.description}</TableCell>
-              <TableCell>
-                <ExpressionsAccordion
-                  expressions={intent.trainingData.expressions}
-                />
-              </TableCell>
-              <TableCell>{intent.trainingData.expressionCount}</TableCell>
-              <TableCell>{intent.reply.text}</TableCell>
-            </SelectableTableRow>
-          );
-        })}
-      </SelectableTableBody>
-    </Table>
+    <>
+      <SelectTracker
+        hasSelected={hasSelectedIntents}
+        amount={selectedAmount}
+        onRemoveSelection={() => setSelectedIntents([])}
+      />
+      <Table>
+        <TableCaption>
+          Hint: click to select, cmd (ctrl) + click to select multiple and cmd
+          (ctrl) + A to select all intents.
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Expressions</TableHead>
+            <TableHead>Expressions count</TableHead>
+            <TableHead>Reply</TableHead>
+          </TableRow>
+        </TableHeader>
+        <SelectableTableBody
+          onSelectAll={() => {
+            setSelectedIntents(() => intents.map((intent) => intent.id));
+          }}
+        >
+          {intents.map((intent) => {
+            const isSelected = selectedIntents.includes(intent.id);
+            return (
+              <SelectableTableRow
+                key={intent.id}
+                data={intent.id}
+                onSelect={(id) => {
+                  setSelectedIntents(() => [id]);
+                }}
+                onSelectMultiple={(id) =>
+                  setSelectedIntents((prev) => [...prev, id])
+                }
+                isSelected={isSelected}
+              >
+                <TableCell className="font-medium">{intent.name}</TableCell>
+                <TableCell>{intent.description}</TableCell>
+                <TableCell>
+                  <ExpressionsAccordion
+                    expressions={intent.trainingData.expressions}
+                  />
+                </TableCell>
+                <TableCell>{intent.trainingData.expressionCount}</TableCell>
+                <TableCell>{intent.reply.text}</TableCell>
+              </SelectableTableRow>
+            );
+          })}
+        </SelectableTableBody>
+      </Table>
+    </>
   );
 };
