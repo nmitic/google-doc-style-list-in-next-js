@@ -23,12 +23,35 @@ export const IntentsTable = ({ intents }: { intents: Intent[] }) => {
   const selectedAmount = selectedIntents.length;
   const hasSelectedIntents = !!selectedAmount;
 
+  const handleRemoveSelections = () => {
+    setSelectedIntents([]);
+  };
+
+  const handleSelectAll = () => {
+    setSelectedIntents((prev) => {
+      const allIntentsWithNoDuplicates = [
+        ...new Set([...prev, ...intents.map((intent) => intent.id)]),
+      ];
+      return allIntentsWithNoDuplicates;
+    });
+  };
+
+  const handleSelectSingle = (id: string) => {
+    setSelectedIntents(() => [id]);
+  };
+
+  const handleSelectMultiple = (id: string) =>
+    setSelectedIntents((prev) => {
+      const allIntentsWithNoDuplicates = [...new Set([...prev, id])];
+      return allIntentsWithNoDuplicates;
+    });
+
   return (
     <>
       <SelectTracker
         hasSelected={hasSelectedIntents}
         amount={selectedAmount}
-        onRemoveSelection={() => setSelectedIntents([])}
+        onRemoveSelection={handleRemoveSelections}
       />
       <Table>
         <TableCaption>
@@ -44,28 +67,15 @@ export const IntentsTable = ({ intents }: { intents: Intent[] }) => {
             <TableHead>Reply</TableHead>
           </TableRow>
         </TableHeader>
-        <SelectableTableBody
-          onSelectAll={() => {
-            setSelectedIntents((prev) => {
-              const allIntentsWithNoDuplicates = [
-                ...new Set([...prev, ...intents.map((intent) => intent.id)]),
-              ];
-              return allIntentsWithNoDuplicates;
-            });
-          }}
-        >
+        <SelectableTableBody onSelectAll={handleSelectAll}>
           {intents.map((intent) => {
             const isSelected = selectedIntents.includes(intent.id);
             return (
               <SelectableTableRow
                 key={intent.id}
                 data={intent.id}
-                onSelect={(id) => {
-                  setSelectedIntents(() => [id]);
-                }}
-                onSelectMultiple={(id) =>
-                  setSelectedIntents((prev) => [...prev, id])
-                }
+                onSelect={handleSelectSingle}
+                onSelectMultiple={handleSelectMultiple}
                 isSelected={isSelected}
               >
                 <TableCell className="font-medium">{intent.name}</TableCell>
