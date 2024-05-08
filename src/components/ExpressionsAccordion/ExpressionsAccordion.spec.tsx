@@ -21,7 +21,9 @@ test("should initially only display first expression and hide the rest", async (
   await expect(component.getByText("Expression 3")).not.toBeVisible();
 });
 
-test("should toggle hidden expressions", async ({ mount }) => {
+test("should toggle hidden expressions while making sure only first one is always visible", async ({
+  mount,
+}) => {
   const component = await mount(
     <ExpressionsAccordion
       expressions={[
