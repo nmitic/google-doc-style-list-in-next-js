@@ -36,6 +36,8 @@ I focused on implementing minimum requirements which were noted in a challenge d
 - Remove selection
 - Selection tracking
 
+In case no time to waste (very valid) - core features are all implemented > [here](src/components/IntentsTable/IntentsTable.tsx) the rest can be ignored ofc.
+
 Please note, I have not tested how this works in window env, only mac, but I am confident it should work.
 
 ## Why Next JS?
