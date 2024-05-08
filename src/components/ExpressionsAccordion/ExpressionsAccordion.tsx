@@ -1,9 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { Expressions } from "@/types/intents";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+
+import "../../app/globals.css";
 
 export const ExpressionsAccordion = ({
   expressions,

@@ -1,7 +1,7 @@
 "use client";
 
 import { Intent } from "@/types/intents";
-import { ExpressionsAccordion } from "../ExpressionsAccordion";
+import { ExpressionsAccordion } from "../ExpressionsAccordion/ExpressionsAccordion";
 import {
   Table,
   TableHeader,
