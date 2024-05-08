@@ -1,4 +1,4 @@
-import { Intent, IntentResponse } from "@/types/intents";
+import { IntentResponse } from "@/types/intents";
 import {
   Pagination,
   PaginationContent,
