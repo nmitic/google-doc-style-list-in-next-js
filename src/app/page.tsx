@@ -29,11 +29,13 @@ export default async function Home({
   const intents: IntentResponse = await response.json();
 
   return (
-    <main className=" max-w-[1200px] m-auto p-3">
+    <main className=" max-w-[1200px] m-auto p-3 flex flex-col h-screen">
       <section className=" mb-6">
         <IntentsTable intents={intents.data} />
       </section>
-      <IntentPagination intents={intents} currentPage={searchParams?._page} />
+      <section className=" mt-auto">
+        <IntentPagination intents={intents} currentPage={searchParams?._page} />
+      </section>
     </main>
   );
 }
