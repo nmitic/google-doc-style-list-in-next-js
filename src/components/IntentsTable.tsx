@@ -139,7 +139,12 @@ export const IntentsTable = ({ intents }: { intents: Intent[] }) => {
         </TableHeader>
         <SelectableTableBody
           onSelectAll={() => {
-            setSelectedIntents(() => intents.map((intent) => intent.id));
+            setSelectedIntents((prev) => {
+              const allIntentsWithNoDuplicates = [
+                ...new Set([...prev, ...intents.map((intent) => intent.id)]),
+              ];
+              return allIntentsWithNoDuplicates;
+            });
           }}
         >
           {intents.map((intent) => {

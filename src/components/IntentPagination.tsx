@@ -18,7 +18,7 @@ export const IntentPagination = ({
   currentPage,
 }: IntentPagination) => {
   return (
-    <Pagination>
+    <Pagination className=" sticky bottom-0 bg-white z-50 p-3">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
