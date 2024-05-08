@@ -1,32 +1,23 @@
+import { ExpressionsAccordion } from "@/components/ExpressionsAccordion";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationPrevious,
   PaginationLink,
-  PaginationEllipsis,
   PaginationNext,
 } from "@/components/ui/pagination";
-import Link from "next/link";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
+import { Intent } from "@/types/intents";
 
-interface Intent {
-  id: string;
-  name: string;
-  description: string;
-  trainingData: {
-    expressionCount: number;
-    expressions: {
-      id: string;
-      text: string;
-    }[];
-  };
-  reply: {
-    id: string;
-    text: string;
-  };
-}
-
-interface IntentResponse {
+export type IntentResponse = {
   first: number;
   prev: number | null;
   next: number | null;
@@ -34,7 +25,7 @@ interface IntentResponse {
   pages: number;
   items: number;
   data: Intent[];
-}
+};
 
 type SearchParams = {
   [key in "_page" | "_per_page"]?: string | undefined;
@@ -55,9 +46,32 @@ export default async function Home({
 
   return (
     <main>
-      {intents.data.map((intent) => {
-        return <h1 key={intent.id}>{intent.name}</h1>;
-      })}
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Expressions</TableHead>
+            <TableHead>Expressions count</TableHead>
+            <TableHead>Reply</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {intents.data.map((intent) => (
+            <TableRow key={intent.id}>
+              <TableCell className="font-medium">{intent.name}</TableCell>
+              <TableCell>{intent.description}</TableCell>
+              <TableCell>
+                <ExpressionsAccordion
+                  expressions={intent.trainingData.expressions}
+                />
+              </TableCell>
+              <TableCell>{intent.trainingData.expressionCount}</TableCell>
+              <TableCell>{intent.reply.text}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
