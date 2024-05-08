@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# TL;DR
+- Clone this repo https://github.com/nmitic/ultimate-intents
+- run pnpm i && pnpm run start in its root
+- Clone the this repo https://github.com/nmitic/ultimate
+- run pnpm i && pnpm dev
+- Project should be available on port :3000
+
 ## Getting Started
 
 ## Please note
