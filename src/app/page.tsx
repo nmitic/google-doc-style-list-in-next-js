@@ -1,5 +1,5 @@
 import { IntentPagination } from "@/components/IntentPagination";
-import { IntentsTable } from "@/components/IntentsTable";
+import { IntentsTable } from "@/components/IntentsTable/IntentsTable";
 import {
   Pagination,
   PaginationContent,
