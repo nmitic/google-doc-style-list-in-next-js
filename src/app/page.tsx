@@ -1,15 +1,7 @@
 import { IntentPagination } from "@/components/IntentPagination";
 import { IntentsTable } from "@/components/IntentsTable/IntentsTable";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationLink,
-  PaginationNext,
-} from "@/components/ui/pagination";
 
-import { Intent, IntentResponse } from "@/types/intents";
+import { IntentResponse } from "@/types/intents";
 
 type SearchParams = {
   [key in "_page" | "_per_page"]?: string | undefined;
