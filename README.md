@@ -22,6 +22,7 @@ Run the following commands (npm, yarn should also work but I am using pnpm)
 ```bash
 pnpm i
 pnpm dev
+pnpm run test-ct - to test component using playwright
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
